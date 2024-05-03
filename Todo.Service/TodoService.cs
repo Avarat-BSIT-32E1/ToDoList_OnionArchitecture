@@ -1,65 +1,43 @@
-using TodoList.Domain;
+using System;
+using System.Collections.Generic;
+using ToDo.Domain;
+using ToDo.Repository;
 using TodoList.Domain.Interface;
-using Todolist.Models;
 
-namespace Todo.Service;
-
-public class TodoService(ITodoRepository repository) : ITodoService
+namespace ToDo.Services
 {
-    public async Task<bool> Delete(int id)
+    public class ToDoService
     {
-        var todo = await repository.GetByIdAsync(id);
-        todo.IsActive = false;
-        repository.Update(todo);
-        await repository.SaveChangesAsync(default);
-        return true;
-    }
+        private readonly ToDoRepository _repository;
 
-    public async Task<bool> MarkAsDone(int id)
-    {
-        var todo = await repository.GetByIdAsync(id);
-        todo.Status = Status.Done;
-        repository.Update(todo);
-        await repository.SaveChangesAsync(default);
-
-        return true;
-    }
-
-    public IEnumerable<TodoModel> GetAll()
-    {
-        return repository.GetAll().Select(c => new TodoModel()
+        public ToDoService(ToDoRepository repository)
         {
-            Category = c.Category,
-            IsActive = c.IsActive,
-            Description = c.Description,
-            DueDate = c.DueDate,
-            Status = c.Status,
-            Id = c.Id
-        }).ToArray();
-    }
+            _repository = repository;
+        }
 
-    public async Task<int> Add(AddTodoModel model)
-    {
-        repository.Add(new ToDo()
+        public Domain.ToDo Create(Domain.ToDo todo)
         {
-            Category = model.Category,
-            Description = model.Description,
-            DueDate = model.DueDate,
-            IsActive = true,
-            Status = Status.New,
-        });
+            return _repository.Create(todo);
+        }
 
-        return 0;
-    }
+        public Domain.ToDo GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
 
-    public async Task<int> UpdateDescription(int id, string description)
-    {
-        var todo = await repository.GetByIdAsync(id);
-        todo.Description = description;
+        public IEnumerable<Domain.ToDo> GetAll()
+        {
+            return _repository.GetAll();
+        }
 
-        repository.Update(todo);
-        await repository.SaveChangesAsync(default);
+        public void Update(Domain.ToDo updatedTodo)
+        {
+            _repository.Update(updatedTodo);
+        }
 
-        return 0;
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
+        }
     }
 }
