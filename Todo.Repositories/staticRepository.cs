@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todo.Repositories.Repositories
+namespace ToDo.Repositories
 {
-    internal class CategoryStaticRepository
+    internal class staticRepository
     {
     }
 }

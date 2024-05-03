@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Todo.Repositories\Todo.Repositories.csproj" />
-    <ProjectReference Include="..\Todo.Service\Todo.Service.csproj" />
-    <ProjectReference Include="..\TodoList.Domain\TodoList.Domain.csproj" />
+    <ProjectReference Include="..\Todo.Repositories\ToDo.Repositories.csproj" />
+    <ProjectReference Include="..\Todo.Service\ToDo.Services.csproj" />
+    <ProjectReference Include="..\TodoList.Domain\ToDo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

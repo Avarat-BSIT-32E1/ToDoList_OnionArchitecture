@@ -1,8 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ToDo.Domain;
 using ToDo.Repository;
-using TodoList.Domain.Interface;
 
 namespace ToDo.Services
 {
