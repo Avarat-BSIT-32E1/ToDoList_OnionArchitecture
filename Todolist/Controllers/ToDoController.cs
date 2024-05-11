@@ -16,7 +16,7 @@ public class ToDoController : Controller
     {
         var todos = _toDoService.GetAll();
 
-
+      
         var numberedTodos = todos.Select((todo, index) =>
             new Tuple<int, ToDo.Domain.ToDo>(index + 1, todo)).ToList();
 
