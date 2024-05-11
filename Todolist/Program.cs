@@ -1,38 +1,42 @@
-using Microsoft.EntityFrameworkCore;
-using ToDo.Domain;
 using System;
+using System.Collections.Generic;
+using ToDo.Domain;
 using ToDo.Repository;
-using ToDo.Services;
-var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(options =>
+namespace ToDo.Services
 {
-    options.UseSqlServer("Server=DESKTOP-TAHDD9J\\SQLEXPRESS01;Database=dbToDO;Trusted_Connection=True;TrustServerCertificate=True");
-});
+    public class ToDoService
+    {
+        private readonly ToDoRepository _repository;
 
-builder.Services.AddSingleton<ToDoRepository>();
-builder.Services.AddScoped<ToDoService>();
-builder.Services.AddScoped<ToDoController>();
+        public ToDoService(ToDoRepository repository)
+        {
+            _repository = repository;
+        }
 
-var app = builder.Build();
+        public Domain.ToDo Create(Domain.ToDo todo)
+        {
+            return _repository.Create(todo);
+        }
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+        public Domain.ToDo GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
+        public IEnumerable<Domain.ToDo> GetAll()
+        {
+            return _repository.GetAll();
+        }
+
+        public void Update(Domain.ToDo updatedTodo)
+        {
+            _repository.Update(updatedTodo);
+        }
+
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=ToDo}/{action=Index}/{id?}");
-
-app.Run();
-
