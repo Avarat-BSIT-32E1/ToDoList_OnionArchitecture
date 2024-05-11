@@ -1,47 +1,38 @@
 using Microsoft.EntityFrameworkCore;
-using Todo.Service;
-using Todolist.Models;
-using Todolist.Repositories;
-using TodoList.Domain.Interface;
+using ToDo.Domain;
+using System;
+using ToDo.Repository;
+using ToDo.Services;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace Todo_List
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    options.UseSqlServer("Server=DESKTOP-TAHDD9J\\SQLEXPRESS01;Database=dbToDO;Trusted_Connection=True;TrustServerCertificate=True");
+});
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ToDoRepository>();
+builder.Services.AddScoped<ToDoService>();
+builder.Services.AddScoped<ToDoController>();
 
-            //Add EF Core Di
-            //builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoContext")));
-            builder.Services.AddScoped<ITodoRepository, TodoStaticRepository>();
-            builder.Services.AddScoped<ITodoService, TodoService>();
+var app = builder.Build();
 
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
-        }
-    }
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=ToDo}/{action=Index}/{id?}");
+
+app.Run();
+
