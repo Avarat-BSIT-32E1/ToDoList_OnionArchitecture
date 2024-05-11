@@ -1,0 +1,38 @@
+﻿
+.form-group {
+    display: flex; 
+    align-items: center; 
+}
+
+    .form-group .control-label {
+        width: 120px; 
+    }
+
+
+.back-to-list-button,
+.submit-button {
+    color: #fff;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.back-to-list-button {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+}
+
+    .back-to-list-button:hover {
+        background-color: deepskyblue;
+    }
+
+.submit-button {
+    background-color: #007bff;
+    border: 1px solid #28a745;
+    margin-right: 10px;
+}
+
+    .submit-button:hover {
+        background-color: deepskyblue;
+    }

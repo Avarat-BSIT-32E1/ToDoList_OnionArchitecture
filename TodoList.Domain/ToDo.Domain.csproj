@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Todolist\Todolist.csproj" />
+  </ItemGroup>
+
 </Project>

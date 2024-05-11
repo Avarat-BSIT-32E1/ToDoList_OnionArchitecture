@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 14px;
 }
 
@@ -18,47 +18,5 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(254, 240, 214);
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
-
-.text-center {
-    text-align: center;
-}
-
-.container {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: rgb(210, 218, 233);
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(217, 207, 222);
-}
-
-h1 {
-    text-align: center;
-}
-
-#task-list {
-    list-style: none;
-    padding: 0;
-}
-
-.task-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-    .task-item:last-child {
-        border-bottom: none;
-    }
-
-    .task-item input[type="checkbox"] {
-        margin-right: 10px;
-        color: rgb(250, 207, 207);
-    }
